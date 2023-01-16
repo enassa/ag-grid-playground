@@ -1,0 +1,7 @@
+<button (click)="getTableData()">FetchData</button>
+<ag-grid-angular
+  [rowData]="rowData$ | async"
+  [columnDefs]="columnDefs"
+  class="ag-theme-alpine"
+  style="height: 800px; width: 100%"
+></ag-grid-angular>
