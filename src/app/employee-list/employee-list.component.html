@@ -1,7 +1,58 @@
-<button (click)="getTableData()">FetchData</button>
+<button
+  style="
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: cornflowerblue;
+    color: white;
+    margin-bottom: 10px;
+    border: 0px;
+    cursor: pointer;
+    margin-right: 10px;
+  "
+  (click)="getTableData()"
+>
+  <i
+    class="pi pi-check"
+    style="font-size: 1rem; color: green; margin-right: 2px"
+  ></i>
+  <span> Fetch Data</span>
+</button>
+<button
+  style="
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: cornflowerblue;
+    color: white;
+    margin-bottom: 10px;
+    border: 0px;
+    cursor: pointer;
+    margin-right: 10px;
+  "
+  (click)="printSlectedColumns()"
+>
+  Print selected columns
+</button>
+<select
+  style="
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: gray;
+    margin-bottom: 10px;
+    border: 1px gray solid;
+    cursor: pointer;
+  "
+  (change)="filterData($event)"
+>
+  <option *ngFor="let option of dropOptions">{{ option.label }}</option>
+</select>
+
 <ag-grid-angular
-  [rowData]="rowData$ | async"
+  [rowData]="rowData"
   [columnDefs]="columnDefs"
+  [gridOptions]="gridOptions"
+  [animateRows]="true"
+  [autoGroupColumnDef]="autoGroupColumnDef"
+  [rowGroupPanelShow]="rowGroupPanelShow"
   class="ag-theme-alpine"
-  style="height: 800px; width: 100%"
+  style="height: 500px; width: 100%; border: 0px; border-radius: 10px"
 ></ag-grid-angular>
