@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from '../data.service';
@@ -13,7 +13,7 @@ import { SelectorComponent } from './../selector/selector.component';
   styleUrls: ['./employee-list.component.css'],
   providers: [DataService],
 })
-export class EmployeeListComponent {
+export class EmployeeListComponent implements OnInit {
   tableData?: any[];
   rowData?: any[];
   groupDisplayType: any = 'multipleColumns';
@@ -41,10 +41,54 @@ export class EmployeeListComponent {
       this.tableData = response.map((item, index) => {
         const randIndex = Math.floor(Math.random() * 8);
         const region = this.regions[randIndex];
-
+        const state = () => {
+          const randValue = Math.random() * 11;
+          if (randValue <= 3) {
+            return 'deleted';
+          } else if (randValue > 3 && randValue < 7) {
+            return 'updated';
+          } else return 'noUpdate';
+        };
+        const newObj = {
+          country: '',
+          region: '',
+          name: item.name,
+          job: item.job,
+          phoneNumber: item.phone_number,
+          company: item.company,
+          account: item.account,
+          swift: item.swift,
+          code: item.code,
+          state: state(),
+          balance: item.balance,
+        };
         return index % 2 === 0
-          ? { country: 'Ghana', region: region + '-' + randIndex, ...item }
-          : { country: 'USA', region: region + '-' + randIndex, ...item };
+          ? {
+              country: 'Ghana',
+              region: region,
+              name: item.name,
+              job: item.job,
+              phoneNumber: item.phone_number,
+              company: item.company,
+              account: item.account,
+              swift: item.swift,
+              code: item.code,
+              state: state(),
+              balance: item.balance,
+            }
+          : {
+              country: 'USA',
+              region: region,
+              name: item.name,
+              job: item.job,
+              phoneNumber: item.phone_number,
+              company: item.company,
+              account: item.account,
+              swift: item.swift,
+              code: item.code,
+              state: false,
+              balance: item.balance,
+            };
       });
       if (this.tableData) this.rowData = this.tableData;
     });
@@ -52,7 +96,6 @@ export class EmployeeListComponent {
 
   defaultColDef: any = {
     sortable: true,
-    minWidth: 500,
     resizable: true,
   };
   gridOptions: GridOptions = {
@@ -91,6 +134,7 @@ export class EmployeeListComponent {
     const cols = this.gridOptions.columnApi?.getAllGridColumns();
     console.log(cols, '--');
   };
+
   filterData = (filterOption: Event) => {
     console.log(this.rowData?.length);
     const value = (<HTMLSelectElement>filterOption.target).value;
@@ -122,9 +166,17 @@ export class EmployeeListComponent {
         break;
     }
   };
-
+  getRowClass = (params: any) => '';
   ngOnInit() {
     this.getTableData();
+    this.getRowClass = (params: any): any => {
+      return params.data.state === 'deleted'
+        ? 'deleted-row'
+        : params.data.state === 'updated'
+        ? 'updated-row'
+        : '';
+    };
+
     // this.rowData$ = this.dataservice.rowData$;
   }
 
@@ -132,39 +184,59 @@ export class EmployeeListComponent {
     {
       field: 'country',
       filter: true,
-      // rowGroup: true,
-      // rowGroupIndex: 0,
       enableRowGroup: true,
       cellRenderer: CustomComponentsComponent,
-      // hide: true,
     },
 
     {
       field: 'region',
-      // rowGroupIndex: 1,
-      // hide: true,
       enableRowGroup: true,
     },
-    { field: 'name', enableRowGroup: true },
+
+    {
+      field: 'name',
+      enableRowGroup: true,
+    },
     { field: 'job' },
-    { field: 'phone_number' },
+    { field: 'phoneNumber' },
     { field: 'company' },
     { field: 'account' },
     { field: 'swift' },
+
+    {
+      field: 'state',
+      headerClass: 'text-red-400',
+      width: 50,
+      cellClass: (param: any): any => {
+        // return param.value === true ? 'minus-icon' : 'plus-icon';
+        return param.value === 'deleted'
+          ? 'minus-icon'
+          : param.value === 'updated'
+          ? 'plus-icon'
+          : 'no-icon';
+      },
+    },
     {
       field: 'balance',
-      cellRendererSelector: (params: ICellRendererParams) => {
-        const numb = parseFloat(params.value.substring(1).split(',').join(''));
-        return {
-          component: SelectorComponent,
-          params: {
-            balance: numb,
-          },
-        };
+      cellClass: (param: any): any => {
+        const numb = parseFloat(param.value.substring(1).split(',').join(''));
+        return numb > 5000 && numb < 10000
+          ? 'no-triangle'
+          : numb > 10000
+          ? 'red-triangle'
+          : 'green-triangle';
       },
+      // cellRendererSelector: (params: ICellRendererParams) => {
+      //   const numb = parseFloat(params.value.substring(1).split(',').join(''));
+
+      //   return {
+      //     component: SelectorComponent,
+      //     params: {
+      //       balance: numb,
+      //     },
+      //   };
+      // },
     },
     { field: 'code' },
   ];
 }
-// enableRowGroup: true,  what does this do ?
-// ability  to drag to row group panel

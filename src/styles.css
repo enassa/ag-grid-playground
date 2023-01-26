@@ -1,2 +1,121 @@
 @import "ag-grid-community/styles/ag-grid.css";
 @import "ag-grid-community/styles/ag-theme-alpine.css";
+body {
+  background-color: #222628;
+}
+.red-triangle {
+  position: relative;
+  color: #ff7700;
+}
+.red-triangle::before {
+  content: "";
+  position: relative;
+  width: 0px;
+  height: 0px;
+  border: 8px solid rgb(255, 119, 0);
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  top: 12px;
+  right: 10px;
+}
+
+.green-triangle {
+  position: relative;
+  color: greenyellow;
+}
+.green-triangle::before {
+  content: "";
+  position: relative;
+  width: 0px;
+  height: 0px;
+  border: 8px solid rgb(60, 232, 60);
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-top-color: transparent;
+  bottom: 33%;
+  right: 10px;
+}
+.no-triangle {
+  position: relative;
+}
+.no-triangle::before {
+  content: "";
+  position: relative;
+  width: 0px;
+  height: 0px;
+  border: 8px solid transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-top-color: transparent;
+  bottom: 33%;
+  right: 10px;
+}
+
+.minus-icon {
+  position: relative;
+  color: transparent;
+}
+.minus-icon::before {
+  content: "-";
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  background-color: white;
+  top: 12px;
+  font-weight: bolder;
+  padding-bottom: 6.5px;
+  color: black;
+  border: 1px solid black;
+  font-size: 25px;
+  margin: auto;
+}
+
+.plus-icon {
+  position: relative;
+  color: transparent;
+}
+.plus-icon::before {
+  content: "+";
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  background-color: #6495ed;
+  border: 1px solid black;
+  color: black;
+  top: 12px;
+  padding-bottom: 4.04px;
+  padding-left: px;
+  font-weight: bolder;
+  font-size: 22px;
+  margin: auto;
+}
+.no-icon {
+  position: relative;
+}
+.no-icon::before {
+  content: "";
+  position: relative;
+  width: 0px;
+  height: 0px;
+  border: 8px solid transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-top-color: transparent;
+  bottom: 33%;
+  right: 10px;
+}
+.deleted-row {
+  background-color: rgb(255, 119, 0, 0.2);
+}
+.updated-row {
+  background-color: rgba(0, 255, 72, 0.2);
+}
