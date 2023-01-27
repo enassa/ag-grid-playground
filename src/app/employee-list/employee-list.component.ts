@@ -174,7 +174,7 @@ export class EmployeeListComponent implements OnInit {
         ? 'deleted-row'
         : params.data.state === 'updated'
         ? 'updated-row'
-        : '';
+        : 'unchanged-row';
     };
 
     // this.rowData$ = this.dataservice.rowData$;
@@ -187,7 +187,6 @@ export class EmployeeListComponent implements OnInit {
       enableRowGroup: true,
       cellRenderer: CustomComponentsComponent,
     },
-
     {
       field: 'region',
       enableRowGroup: true,
@@ -206,7 +205,7 @@ export class EmployeeListComponent implements OnInit {
     {
       field: 'state',
       headerClass: 'text-red-400',
-      width: 50,
+      // width: 50,
       cellClass: (param: any): any => {
         // return param.value === true ? 'minus-icon' : 'plus-icon';
         return param.value === 'deleted'
