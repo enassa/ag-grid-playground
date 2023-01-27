@@ -9,8 +9,9 @@ import { DropdownModule } from 'primeng/dropdown';
 import 'ag-grid-enterprise';
 import { CustomComponentsComponent } from './custom-components/custom-components.component';
 import { SelectorComponent } from './selector/selector.component';
+import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
 @NgModule({
-  declarations: [AppComponent, EmployeeListComponent, CustomComponentsComponent, SelectorComponent],
+  declarations: [AppComponent, EmployeeListComponent, CustomComponentsComponent, SelectorComponent, ReactiveFormComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

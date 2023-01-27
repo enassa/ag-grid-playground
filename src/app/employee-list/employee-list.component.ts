@@ -115,8 +115,8 @@ export class EmployeeListComponent implements OnInit {
     // showOpenedGroup: true,
     // groupHideOpenParents: true, //prevent expanded group from displaying below
     sideBar: true,
-    suppressDragLeaveHidesColumns: true,
-    suppressMakeColumnVisibleAfterUnGroup: true,
+    // suppressDragLeaveHidesColumns: true,
+    // suppressMakeColumnVisibleAfterUnGroup: true,
   };
   autoGroupColumnDef = {
     // headerName: ' CUSTOM! ',
@@ -125,7 +125,7 @@ export class EmployeeListComponent implements OnInit {
       suppressCount: true,
       checkbox: true,
       innerRenderer: (param: { value: string }) =>
-        '<button style="color:red; border:0px; padding:5px 10px; border-radius:20px; cursor:pointer">' +
+        '<button style="color:white; border:0px; padding:5px 10px; border-radius:20px; cursor:pointer">' +
         param.value +
         '</button>',
     },
@@ -170,9 +170,10 @@ export class EmployeeListComponent implements OnInit {
   ngOnInit() {
     this.getTableData();
     this.getRowClass = (params: any): any => {
-      return params.data.state === 'deleted'
+      console.log(params.data);
+      return params.data?.state === 'deleted'
         ? 'deleted-row'
-        : params.data.state === 'updated'
+        : params.data?.state === 'updated'
         ? 'updated-row'
         : 'unchanged-row';
     };
@@ -185,7 +186,7 @@ export class EmployeeListComponent implements OnInit {
       field: 'country',
       filter: true,
       enableRowGroup: true,
-      cellRenderer: CustomComponentsComponent,
+      // cellRenderer: CustomComponentsComponent,
     },
     {
       field: 'region',
@@ -194,7 +195,6 @@ export class EmployeeListComponent implements OnInit {
 
     {
       field: 'name',
-      enableRowGroup: true,
     },
     { field: 'job' },
     { field: 'phoneNumber' },
@@ -207,6 +207,8 @@ export class EmployeeListComponent implements OnInit {
       headerClass: 'text-red-400',
       // width: 50,
       cellClass: (param: any): any => {
+        if (param.value === undefined) return;
+
         // return param.value === true ? 'minus-icon' : 'plus-icon';
         return param.value === 'deleted'
           ? 'minus-icon'
@@ -218,7 +220,8 @@ export class EmployeeListComponent implements OnInit {
     {
       field: 'balance',
       cellClass: (param: any): any => {
-        const numb = parseFloat(param.value.substring(1).split(',').join(''));
+        if (param.value === undefined) return;
+        const numb = parseFloat(param.value?.substring(1).split(',').join(''));
         return numb > 5000 && numb < 10000
           ? 'no-triangle'
           : numb > 10000

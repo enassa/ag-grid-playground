@@ -1,5 +1,8 @@
 @import "ag-grid-community/styles/ag-grid.css";
 @import "ag-grid-community/styles/ag-theme-alpine.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 body {
   background-color: #222628;
 }
@@ -65,12 +68,14 @@ body {
   /* background-color: white; */
   top: 12px;
   font-weight: bolder;
-  padding-bottom: 3px;
+  padding-bottom: 2px;
   color: black;
-  border: 1px solid #e18c8c;
+  border: 1px solid #d63031;
+  /* border: 1px solid #ff6b6b; */
   font-size: 11px;
   margin: auto;
-  color: #e18c8c;
+  /* color: #ff6b6b; */
+  color: #d63031;
 }
 
 .plus-icon {
@@ -78,7 +83,7 @@ body {
   color: transparent;
 }
 .plus-icon::before {
-  content: "Updated";
+  content: "New";
   position: relative;
   display: flex;
   justify-content: center;
@@ -90,10 +95,12 @@ body {
   top: 12px;
   font-weight: bolder;
   padding-bottom: 3px;
-  border: 1px solid #a5c3ba;
+  /* border: 1px solid #27ae60; */
+  border: 1px solid #2ecc71;
   font-size: 11px;
   margin: auto;
-  color: #a5c3ba;
+  color: #2ecc71;
+  /* color: #27ae60; */
 }
 .no-icon {
   position: relative;
@@ -112,12 +119,12 @@ body {
   right: 10px;
 }
 .deleted-row {
-  /* background-color: rgb(255, 119, 0, 0.2); */
-  background-color: #ff770018;
+  background-color: rgb(255, 119, 0, 0.2);
+  /* background-color: #ff770018; */
 }
 .updated-row {
-  /* background-color: rgba(0, 255, 72, 0.2); */
-  background-color: rgb(0 255 72 / 6%);
+  background-color: rgba(0, 255, 72, 0.2);
+  /* background-color: rgb(0 255 72 / 6%); */
 }
 .unchanged-row {
   background-color: #181d1f;
