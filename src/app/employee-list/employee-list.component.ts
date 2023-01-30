@@ -64,6 +64,7 @@ export class EmployeeListComponent implements OnInit {
         };
         return index % 2 === 0
           ? {
+              count: index,
               country: 'Ghana',
               region: region,
               name: item.name,
@@ -77,6 +78,7 @@ export class EmployeeListComponent implements OnInit {
               balance: item.balance,
             }
           : {
+              count: index,
               country: 'USA',
               region: region,
               name: item.name,
@@ -170,7 +172,6 @@ export class EmployeeListComponent implements OnInit {
   ngOnInit() {
     this.getTableData();
     this.getRowClass = (params: any): any => {
-      console.log(params.data);
       return params.data?.state === 'deleted'
         ? 'deleted-row'
         : params.data?.state === 'updated'
@@ -182,6 +183,20 @@ export class EmployeeListComponent implements OnInit {
   }
 
   columnDefs: any[] = [
+    {
+      field: 'count',
+      comparator: (
+        valueA: any,
+        valueB: any,
+        nodeA: any,
+        nodeB: any,
+        isDescending: any
+      ) => {
+        // console.log('1====', nodeA, '2====', nodeB);
+        if (valueA == valueB) return 0;
+        return valueA < valueB ? 1 : -1;
+      },
+    },
     {
       field: 'country',
       filter: true,
@@ -197,7 +212,20 @@ export class EmployeeListComponent implements OnInit {
       field: 'name',
     },
     { field: 'job' },
-    { field: 'phoneNumber' },
+    {
+      field: 'phoneNumber',
+      comparator: (
+        valueA: any,
+        valueB: any,
+        nodeA: any,
+        nodeB: any,
+        isDescending: any
+      ) => {
+        // console.log('1====', nodeA, '2====', nodeB);
+        if (valueA == valueB) return 0;
+        return valueA > valueB ? 1 : -1;
+      },
+    },
     { field: 'company' },
     { field: 'account' },
     { field: 'swift' },
